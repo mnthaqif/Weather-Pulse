@@ -84,11 +84,11 @@ const CurrentWeather: React.FC<CurrentWeatherProps> = ({ data, onSearch, isAiLoa
 
   const getWeatherIcon = (type: WeatherType) => {
     switch (type) {
-      case WeatherType.Sunny: return <Sun className="w-24 h-24 text-yellow-500 animate-[spin_10s_linear_infinite]" />;
-      case WeatherType.Rainy: return <CloudRain className="w-24 h-24 text-blue-400" />;
-      case WeatherType.Snowy: return <CloudSnow className="w-24 h-24 text-white" />;
-      case WeatherType.Stormy: return <CloudLightning className="w-24 h-24 text-purple-400" />;
-      case WeatherType.Cloudy: return <Cloud className="w-24 h-24 text-gray-400" />;
+      case WeatherType.Sunny: return <Sun className="w-24 h-24 text-yellow-500 dark:text-yellow-300 animate-[spin_10s_linear_infinite] drop-shadow-[0_0_15px_rgba(253,224,71,0.6)]" />;
+      case WeatherType.Rainy: return <CloudRain className="w-24 h-24 text-blue-500 dark:text-blue-300 drop-shadow-[0_0_15px_rgba(59,130,246,0.6)]" />;
+      case WeatherType.Snowy: return <CloudSnow className="w-24 h-24 text-sky-200 dark:text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.6)]" />;
+      case WeatherType.Stormy: return <CloudLightning className="w-24 h-24 text-purple-600 dark:text-purple-400 drop-shadow-[0_0_15px_rgba(168,85,247,0.6)]" />;
+      case WeatherType.Cloudy: return <Cloud className="w-24 h-24 text-slate-400 dark:text-slate-200 drop-shadow-[0_0_15px_rgba(226,232,240,0.4)]" />;
       default: return <Sun className="w-24 h-24" />;
     }
   };
@@ -173,36 +173,44 @@ const CurrentWeather: React.FC<CurrentWeatherProps> = ({ data, onSearch, isAiLoa
           {getWeatherIcon(data.condition)}
         </div>
         <div className="text-center">
-          <h1 className="text-8xl font-thin text-primary tracking-tighter drop-shadow-lg">
+          <h1 className="text-9xl font-light tracking-tighter drop-shadow-lg text-transparent bg-clip-text bg-gradient-to-b from-slate-700 to-slate-900 dark:from-white dark:to-white/60">
             {Math.round(data.currentTemp)}°
           </h1>
-          <p className="text-2xl font-light text-secondary mt-2">{data.condition}</p>
-          <div className="flex items-center justify-center space-x-4 mt-2 text-secondary">
-            <span>H: {Math.round(data.high)}°</span>
-            <span>L: {Math.round(data.low)}°</span>
+          <p className="text-2xl font-light text-secondary mt-[-10px]">{data.condition}</p>
+          <div className="flex items-center justify-center space-x-4 mt-4 text-secondary">
+            <span className="bg-white/30 dark:bg-black/20 px-3 py-1 rounded-full text-sm font-semibold">H: {Math.round(data.high)}°</span>
+            <span className="bg-white/30 dark:bg-black/20 px-3 py-1 rounded-full text-sm font-semibold">L: {Math.round(data.low)}°</span>
           </div>
         </div>
       </div>
 
       {/* Stats Grid */}
       <div className={`grid grid-cols-2 gap-4 mt-12 z-10 w-full max-w-md mx-auto transition-all duration-500 ${showInput ? 'translate-y-10 opacity-50' : 'translate-y-0 opacity-100'}`}>
-        <div className="card-glass p-4 rounded-3xl flex flex-col items-center hover:bg-white/50 dark:hover:bg-white/10 transition-colors">
-          <Wind className="text-secondary mb-2" size={24} />
+        <div className="card-glass p-4 rounded-3xl flex flex-col items-center hover:bg-white/50 dark:hover:bg-white/10 transition-colors group">
+          <div className="p-2 bg-blue-100/50 dark:bg-blue-900/30 rounded-full mb-2 group-hover:scale-110 transition-transform">
+             <Wind className="text-blue-500 dark:text-blue-300" size={20} />
+          </div>
           <span className="text-primary font-bold">{data.windSpeed} km/h</span>
           <span className="text-xs text-secondary">Wind</span>
         </div>
-        <div className="card-glass p-4 rounded-3xl flex flex-col items-center hover:bg-white/50 dark:hover:bg-white/10 transition-colors">
-          <Droplets className="text-secondary mb-2" size={24} />
+        <div className="card-glass p-4 rounded-3xl flex flex-col items-center hover:bg-white/50 dark:hover:bg-white/10 transition-colors group">
+          <div className="p-2 bg-cyan-100/50 dark:bg-cyan-900/30 rounded-full mb-2 group-hover:scale-110 transition-transform">
+             <Droplets className="text-cyan-500 dark:text-cyan-300" size={20} />
+          </div>
           <span className="text-primary font-bold">{data.humidity}%</span>
           <span className="text-xs text-secondary">Humidity</span>
         </div>
-        <div className="card-glass p-4 rounded-3xl flex flex-col items-center hover:bg-white/50 dark:hover:bg-white/10 transition-colors">
-          <ThermometerSun className="text-secondary mb-2" size={24} />
+        <div className="card-glass p-4 rounded-3xl flex flex-col items-center hover:bg-white/50 dark:hover:bg-white/10 transition-colors group">
+          <div className="p-2 bg-orange-100/50 dark:bg-orange-900/30 rounded-full mb-2 group-hover:scale-110 transition-transform">
+             <ThermometerSun className="text-orange-500 dark:text-orange-300" size={20} />
+          </div>
           <span className="text-primary font-bold">{data.feelsLike}°</span>
           <span className="text-xs text-secondary">Feels Like</span>
         </div>
-         <div className="card-glass p-4 rounded-3xl flex flex-col items-center hover:bg-white/50 dark:hover:bg-white/10 transition-colors">
-          <AlertCircle className="text-secondary mb-2" size={24} />
+         <div className="card-glass p-4 rounded-3xl flex flex-col items-center hover:bg-white/50 dark:hover:bg-white/10 transition-colors group">
+          <div className="p-2 bg-purple-100/50 dark:bg-purple-900/30 rounded-full mb-2 group-hover:scale-110 transition-transform">
+             <AlertCircle className="text-purple-500 dark:text-purple-300" size={20} />
+          </div>
           <span className="text-primary font-bold">{data.aqi}</span>
           <span className="text-xs text-secondary">AQI</span>
         </div>
@@ -210,15 +218,17 @@ const CurrentWeather: React.FC<CurrentWeatherProps> = ({ data, onSearch, isAiLoa
 
       {/* AI Insight Card */}
       <div className={`mt-6 w-full max-w-md mx-auto z-10 mb-6 transition-all duration-500 ${showInput ? 'opacity-0 translate-y-10' : 'opacity-100 translate-y-0'}`}>
-         <div className="bg-gradient-to-r from-indigo-500/10 to-purple-500/10 dark:from-indigo-500/30 dark:to-purple-500/30 backdrop-blur-md rounded-3xl p-5 border border-indigo-200/30 dark:border-white/10 relative overflow-hidden group">
+         <div className="bg-gradient-to-r from-indigo-500/10 to-purple-500/10 dark:from-indigo-500/30 dark:to-purple-500/30 backdrop-blur-md rounded-3xl p-5 border border-indigo-200/30 dark:border-white/10 relative overflow-hidden group hover:shadow-lg transition-shadow">
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-indigo-400/50 dark:via-white/50 to-transparent opacity-30 group-hover:animate-[drift_2s_linear_infinite]"></div>
             <div className="flex justify-between items-start">
-               <h3 className="text-sm font-semibold text-indigo-600 dark:text-purple-200 mb-2 uppercase tracking-wider">WeatherPulse AI</h3>
-               <button onClick={onRefreshAi} disabled={isAiLoading} className="text-xs text-primary bg-white/30 dark:bg-white/10 hover:bg-white/50 px-2 py-1 rounded transition-colors">
+               <h3 className="text-sm font-bold text-indigo-600 dark:text-purple-200 mb-2 uppercase tracking-wider flex items-center">
+                 ✨ WeatherPulse AI
+               </h3>
+               <button onClick={onRefreshAi} disabled={isAiLoading} className="text-xs font-medium text-primary bg-white/40 dark:bg-white/10 hover:bg-white/60 px-3 py-1.5 rounded-full transition-colors">
                  {isAiLoading ? 'Thinking...' : 'Refresh'}
                </button>
             </div>
-            <p className="text-primary text-sm leading-relaxed">
+            <p className="text-primary text-sm leading-relaxed font-medium opacity-90">
               {aiInsight || "Tap refresh to get AI-powered weather advice for your outfit and activities."}
             </p>
          </div>

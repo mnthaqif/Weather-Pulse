@@ -169,6 +169,21 @@ const WeatherBackground: React.FC<WeatherBackgroundProps> = ({ condition, timeOf
      ));
   }, []);
 
+  // -------------------------
+  // SUN RAYS (NEW)
+  // -------------------------
+  const SunRays = useMemo(() => {
+    return (
+       <div className="absolute top-[-20%] right-[-20%] w-[140vw] h-[140vw] z-0 pointer-events-none opacity-50 mix-blend-soft-light">
+          {/* Layer 1: Clockwise */}
+          <div className="absolute inset-0 bg-[conic-gradient(from_0deg_at_50%_50%,rgba(255,255,255,0.08)_0deg,transparent_40deg,rgba(255,255,255,0.08)_80deg,transparent_120deg,rgba(255,255,255,0.08)_160deg,transparent_200deg,rgba(255,255,255,0.08)_240deg,transparent_280deg,rgba(255,255,255,0.08)_320deg,transparent_360deg)] animate-spin-slow blur-3xl" />
+          
+          {/* Layer 2: Counter-Clockwise */}
+          <div className="absolute inset-0 bg-[conic-gradient(from_180deg_at_50%_50%,rgba(255,223,130,0.1)_0deg,transparent_50deg,rgba(255,223,130,0.1)_100deg,transparent_150deg,rgba(255,223,130,0.1)_200deg,transparent_360deg)] animate-spin-reverse-slow blur-2xl scale-110" />
+       </div>
+    );
+  }, []);
+
   return (
     <div className={`fixed inset-0 z-0 transition-all duration-1000 ${getGradient()}`}>
       
@@ -182,6 +197,9 @@ const WeatherBackground: React.FC<WeatherBackgroundProps> = ({ condition, timeOf
          ></div>
       )}
       
+      {/* Sun Rays Effect (Daytime Sunny) */}
+      {condition === WeatherType.Sunny && timeOfDay !== TimeOfDay.Night && SunRays}
+
       {/* Stars if Night */}
       {timeOfDay === TimeOfDay.Night && (condition === WeatherType.Sunny || condition === WeatherType.Cloudy) && Stars}
 
@@ -191,11 +209,6 @@ const WeatherBackground: React.FC<WeatherBackgroundProps> = ({ condition, timeOf
       {/* Precipitation */}
       {(condition === WeatherType.Rainy || condition === WeatherType.Stormy) && RainDrops}
       {condition === WeatherType.Snowy && SnowFlakes}
-      
-      {/* Sun Rays Effect (Daytime Sunny) */}
-      {condition === WeatherType.Sunny && timeOfDay !== TimeOfDay.Night && (
-         <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-bl from-yellow-100/10 via-transparent to-transparent pointer-events-none"></div>
-      )}
 
       {/* Lightning Flash (Stormy) */}
       {condition === WeatherType.Stormy && (

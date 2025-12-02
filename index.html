@@ -102,6 +102,22 @@
         96% { opacity: 0.8; }
         100% { opacity: 0; }
       }
+
+      @keyframes spin-slow {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+      @keyframes spin-reverse-slow {
+        from { transform: rotate(360deg); }
+        to { transform: rotate(0deg); }
+      }
+      
+      .animate-spin-slow {
+        animation: spin-slow 60s linear infinite;
+      }
+      .animate-spin-reverse-slow {
+        animation: spin-reverse-slow 50s linear infinite;
+      }
     </style>
   <script type="importmap">
 {

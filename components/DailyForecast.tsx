@@ -12,9 +12,9 @@ const DailyForecast: React.FC<DailyForecastProps> = ({ data }) => {
     switch (type) {
       case WeatherType.Sunny: return <Sun size={size} className="text-yellow-500 dark:text-yellow-300" />;
       case WeatherType.Rainy: return <CloudRain size={size} className="text-blue-500 dark:text-blue-300" />;
-      case WeatherType.Snowy: return <CloudSnow size={size} className="text-slate-600 dark:text-white" />;
+      case WeatherType.Snowy: return <CloudSnow size={size} className="text-sky-300 dark:text-white" />;
       case WeatherType.Stormy: return <CloudLightning size={size} className="text-purple-600 dark:text-purple-300" />;
-      default: return <Cloud size={size} className="text-gray-500 dark:text-gray-300" />;
+      default: return <Cloud size={size} className="text-gray-400 dark:text-gray-300" />;
     }
   };
 
@@ -23,24 +23,24 @@ const DailyForecast: React.FC<DailyForecastProps> = ({ data }) => {
        <h2 className="text-2xl font-bold text-primary mb-6 px-2">7-Day Forecast</h2>
        <div className="space-y-3">
          {data.map((day, idx) => (
-           <div key={idx} className="flex items-center justify-between card-glass p-4 rounded-3xl hover:scale-[1.02] transition-transform duration-200">
-             <span className="w-16 font-medium text-primary">{day.day}</span>
+           <div key={idx} className="flex items-center justify-between card-glass p-4 rounded-3xl hover:scale-[1.02] transition-transform duration-200 group">
+             <span className="w-16 font-medium text-primary group-hover:text-blue-500 dark:group-hover:text-blue-300 transition-colors">{day.day}</span>
              
              <div className="flex flex-col items-center w-10">
                {getIcon(day.icon)}
                {day.precipChance > 20 && (
                  <div className="flex items-center mt-1 space-x-0.5">
-                    <Droplets size={8} className="text-blue-500 dark:text-blue-300"/>
-                    <span className="text-[10px] text-blue-500 dark:text-blue-300">{day.precipChance}%</span>
+                    <Droplets size={8} className="text-cyan-500 dark:text-cyan-300"/>
+                    <span className="text-[10px] text-cyan-500 dark:text-cyan-300 font-bold">{day.precipChance}%</span>
                  </div>
                )}
              </div>
 
-             <div className="flex items-center space-x-4 w-32 justify-end">
+             <div className="flex items-center space-x-4 w-36 justify-end">
                 <span className="text-secondary text-sm">{Math.round(day.minTemp)}°</span>
-                <div className="w-16 h-1.5 bg-slate-300/50 dark:bg-white/20 rounded-full overflow-hidden relative">
+                <div className="w-16 h-1.5 bg-slate-200 dark:bg-white/10 rounded-full overflow-hidden relative">
                    <div 
-                     className="absolute h-full bg-gradient-to-r from-blue-400 to-yellow-400 rounded-full"
+                     className="absolute h-full bg-gradient-to-r from-cyan-400 to-yellow-400 rounded-full opacity-80"
                      style={{ 
                        left: '10%', 
                        right: '10%' // Mock visual bar
